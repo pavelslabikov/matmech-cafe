@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 Наши сотрудники
+    ul
+        each worker in workers
+            li Имя: #{worker.name}
+
+        else
+            li Сотрудников нет.

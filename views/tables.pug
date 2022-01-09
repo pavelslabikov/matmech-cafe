@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 Столики для бронирования
+    ul
+        each table in tables
+            li Номер: #{table.number}
+
+        else
+            li В данный момент свободных столиков нет.
