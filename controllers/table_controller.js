@@ -16,13 +16,14 @@ exports.create_table = function (req, res) {
 };
 
 exports.book_table_get = function (req, res, next) {
-    table.find()
-        .where('number').equals(parseInt(req.params.number))
+    table.findOne()
+        .where('number').equals(req.params.number)
         .exec(function (err, table) {
+            console.log(table)
             if (err) {
                 return next(err);
             }
-            if (table.number == null) {
+            if (table == null) {
                 res.sendStatus(404);
             } else {
                 res.render('book_table', {table: table});

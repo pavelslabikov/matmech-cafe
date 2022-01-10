@@ -13,6 +13,7 @@ if (!userArgs[0].startsWith('mongodb')) {
 var async = require('async')
 var customer = require('./models/customer')
 var worker = require('./models/worker')
+var table = require('./models/table')
 
 var mongoose = require('mongoose');
 var mongoDB = userArgs[0];
@@ -23,6 +24,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var customers = []
 var workers = []
+var tables = []
 
 
 customer.deleteMany()
@@ -63,6 +65,25 @@ function workerCreate(name, cb) {
     }  );
 }
 
+function tableCreate(num, cap, cb) {
+    detail = {
+        number: num,
+        occupied: false,
+        capacity: cap
+    };
+
+    var newTable = new table(detail);
+    newTable.save(function (err) {
+        if (err) {
+            cb(err, null)
+            return
+        }
+        console.log('New customer: ' + newTable);
+        tables.push(newTable)
+        cb(null, newTable)
+    }  );
+}
+
 function createCustomers(cb) {
     async.parallel([
             function(callback) {
@@ -89,10 +110,24 @@ function createWorkers(cb) {
         cb);
 }
 
+function createTables(cb) {
+    async.parallel([
+            function(callback) {
+                tableCreate(1, 5, callback);
+            },
+            function(callback) {
+                tableCreate(2, 2, callback);
+            }
+        ],
+        // optional callback
+        cb);
+}
+
 
 async.series([
         createCustomers,
-        createWorkers
+        createWorkers,
+        createTables
     ],
 // Optional callback
     function(err, results) {
