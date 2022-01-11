@@ -9,8 +9,8 @@ block content
             label(for='name') Ваше имя:
             input#name.form-control(type='text', placeholder='Павел' name='name' value=(undefined === customer ? '' : customer.name), required='true')
 
-            label(for='phone') Телефон:
-            input#phone.form-control(type='text', placeholder='89122665566' name='phone' value=(undefined === customer ? '' : customer.phone_number), required='true')
+            label(for='phone_number') Телефон:
+            input#phone_number.form-control(type='text', placeholder='89122665566' name='phone_number' value=(undefined === customer ? '' : customer.phone_number), required='true')
 
         button.btn.btn-primary(type='submit') Забронировать
 

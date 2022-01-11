@@ -4,7 +4,9 @@ block content
     h1 Наши сотрудники
     ul
         each worker in workers
-            li Имя: #{worker.name}
+            li
+                img(src='/public/images/dd.png' style='width:350px; height:500px;')
+            | Имя: #{worker.name}
 
         else
             li Сотрудников нет.

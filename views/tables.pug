@@ -4,7 +4,9 @@ block content
     h1 Столики для бронирования
     ul
         each table in tables
-            li Номер: #{table.number}
+            li Номер:
+                a(href="/tables/" + table.number) #{table.number}
+                |  <br>Количество мест: #{table.capacity}
 
         else
             li В данный момент свободных столиков нет.
