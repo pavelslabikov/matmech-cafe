@@ -69,6 +69,38 @@ exports.book_table_post = [
     }
 ];
 
+exports.book_table_cancel_get = function (req, res, next) {
+    table.findOne()
+        .where('number').equals(req.params.number)
+        .exec(function (err, table) {
+            console.log(table)
+            if (err) {
+                return next(err);
+            }
+            if (table == null) {
+                res.sendStatus(404);
+            } else {
+                res.render('book_table', {table: table});
+            }
+        })
+};
+
+exports.book_table_cancel_post = function (req, res, next) {
+    table.findOne()
+        .where('number').equals(req.params.number)
+        .exec(function (err, table) {
+            console.log(table)
+            if (err) {
+                return next(err);
+            }
+            if (table == null) {
+                res.sendStatus(404);
+            } else {
+                res.render('book_table', {table: table});
+            }
+        })
+};
+
 
 
 

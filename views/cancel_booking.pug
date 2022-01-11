@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    h1 Отмена брони столика
+    form(method='POST' action='')
+        div.form-group
+            label(for='phone_number') Телефон:
+            input#phone_number.form-control(type='text', placeholder='89122665566' name='phone_number' value=(undefined === customer ? '' : customer.phone_number), required='true')
+
+        button.btn.btn-primary(type='submit') Отменить бронь
+
+    if errors
+        ul
+            for error in errors
+                li!= error.msg
