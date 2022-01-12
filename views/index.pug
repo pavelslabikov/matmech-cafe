@@ -1,5 +1,25 @@
 extends layout
 
 block content
+  script.
+    function initMap() {
+      // The location of Uluru
+      const uluru = {lat: 56.84079883904458, lng: 60.614986481414};
+      // The map, centered at Uluru
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 17,
+        center: uluru,
+      });
+      // The marker, positioned at Uluru
+      const marker = new google.maps.Marker({
+        position: uluru,
+        map: map,
+      });
+    }
   h1 Matmech Cafe
   p Добро пожаловать на официальный веб-сайт кафе у МатМеха!
+  hr
+  h3 Мы на карте
+  div(id='map' style='width:80%; height:400px;')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBosi09vA1f05GARMQd3mewYu-_8f8KxFQ&callback=initMap', async=true)
+
