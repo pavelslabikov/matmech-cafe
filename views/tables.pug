@@ -5,8 +5,8 @@ block content
     ul
         each table in tables
             li Номер:
-                a(href="/tables/" + table.number) #{table.number}
-                |  <br>Количество мест: #{table.capacity}
+                a(href="/tables/book/" + table.number) #{table.number}
+                |  <br>Количество мест: #{table.capacity}<br>Расположение стола: #{table.place}
 
         else
             li В данный момент свободных столиков нет.

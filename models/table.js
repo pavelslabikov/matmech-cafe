@@ -7,7 +7,8 @@ var Schema = mongoose.Schema;
 var tableSchema = new Schema({
     number: Number,
     occupied: Boolean,
-    capacity: Number
+    capacity: Number,
+    place: String
 });
 
 //Export function to create "SomeModel" model class

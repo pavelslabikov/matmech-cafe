@@ -9,7 +9,5 @@ block content
 
         button.btn.btn-primary(type='submit') Отменить бронь
 
-    if errors
-        ul
-            for error in errors
-                li!= error.msg
+    if message
+        p #{message.text}

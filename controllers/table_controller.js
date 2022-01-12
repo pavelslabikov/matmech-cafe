@@ -46,7 +46,7 @@ exports.book_table_post = [
                     return;
                 }
                 if (currTable.occupied) {
-                    res.render('book_table', {table: currTable, customer: req.body, errors: [{msg: 'Столик уже был забронирован!'}]});
+                    res.render('book_table', {table: currTable, customer: req.body, message: {text: '❌ Столик уже забронирован!'}});
                     return;
                 }
                 customer.findOne()
@@ -58,18 +58,26 @@ exports.book_table_post = [
                             return next(err);
                         }
                         if (foundCustomer == null) {
-                            var cust = new customer({phone_number: req.body.phone_number, name: req.body.name, occupied_table: currTable});
+                            var cust = new customer({
+                                phone_number: req.body.phone_number,
+                                name: req.body.name,
+                                occupied_table: currTable
+                            });
                             console.log('New customer: ' + cust);
                             cust.save()
                         } else {
                             if (foundCustomer.occupied_table != null) {
-                                res.render('book_table', {table: currTable, customer: req.body, errors: [{msg: 'Вами ранее уже был забронирован другой столик!'}]});
+                                res.render('book_table', {
+                                    table: currTable,
+                                    customer: req.body,
+                                    message: {text: '❌ Вами ранее уже был забронирован другой столик!'}
+                                });
                                 return;
                             }
                         }
                         currTable.occupied = true
                         currTable.save()
-                        res.render('book_table', {table: currTable, customer: req.body});
+                        res.render('book_table', {table: currTable, customer: req.body, message: {text: '✅ Успех'}});
                     });
             })
 
@@ -77,36 +85,12 @@ exports.book_table_post = [
     }
 ];
 
-exports.book_table_cancel_get = function (req, res, next) {
-    table.findOne()
-        .where('number').equals(req.params.number)
-        .exec(function (err, table) {
-            console.log(table)
-            if (err) {
-                return next(err);
-            }
-            if (table == null) {
-                res.sendStatus(404);
-            } else {
-                res.render('book_table', {table: table});
-            }
-        })
+exports.book_table_cancel_get = function (req, res) {
+    res.render('cancel_booking')
 };
 
 exports.book_table_cancel_post = function (req, res, next) {
-    table.findOne()
-        .where('number').equals(req.params.number)
-        .exec(function (err, table) {
-            console.log(table)
-            if (err) {
-                return next(err);
-            }
-            if (table == null) {
-                res.sendStatus(404);
-            } else {
-                res.render('book_table', {table: table});
-            }
-        })
+
 };
 
 

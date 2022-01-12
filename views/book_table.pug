@@ -4,7 +4,7 @@ block content
     h1 Бронирование столика
     p Номер стола: #{table.number}
     p Количество мест: #{table.capacity}
-    p Расположение:
+    p Расположение: #{table.place}
     hr
     form(method='POST' action='')
         div.form-group
@@ -16,9 +16,5 @@ block content
 
         button.btn.btn-primary(type='submit') Забронировать
 
-    if success_msg
-        p Успех!
-    if errors
-        ul
-            for error in errors
-                li!= error.msg
+    if message
+        p #{message.text}
