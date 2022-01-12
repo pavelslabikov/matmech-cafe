@@ -7,8 +7,7 @@ var Schema = mongoose.Schema;
 var tableSchema = new Schema({
     number: Number,
     occupied: Boolean,
-    capacity: Number,
-    customer_id: { type: Schema.Types.ObjectId, ref: 'Customer', required: false },
+    capacity: Number
 });
 
 //Export function to create "SomeModel" model class

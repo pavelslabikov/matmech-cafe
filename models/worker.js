@@ -5,7 +5,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var workerSchema = new Schema({
-    name: String
+    name: String,
+    job: String,
+    description: String,
+    image: String
 });
 
 //Export function to create "SomeModel" model class

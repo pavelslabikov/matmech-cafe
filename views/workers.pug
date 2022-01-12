@@ -2,11 +2,21 @@ extends layout
 
 block content
     h1 Наши сотрудники
-    ul
-        each worker in workers
-            li
-                img(src='/public/images/dd.png' style='width:350px; height:500px;')
-            | Имя: #{worker.name}
-
-        else
-            li Сотрудников нет.
+    table(style='width:100%')
+        tbody
+            - var n = 0
+            while n < workers.length
+                tr(class='worker-table-row')
+                    td
+                        if workers[n]
+                            img(src='/public/images/' + workers[n].image class='worker-photo')
+                            | <br>Имя: #{workers[n].name}<br>Должность: #{workers[n].job}<br>О сотруднике: #{workers[n].description}
+                    td
+                        if workers[n + 1]
+                            img(src='/public/images/' + workers[n + 1].image class='worker-photo')
+                            | <br>Имя: #{workers[n + 1].name}<br>Должность: #{workers[n + 1].job}<br>О сотруднике: #{workers[n + 1].description}
+                    td
+                        if workers[n + 2]
+                            img(srcset='/public/images/' + workers[n + 2].image class='worker-photo')
+                            | <br>Имя: #{workers[n + 2].name}<br>Должность: #{workers[n + 2].job}<br>О сотруднике: #{workers[n + 2].description}
+                - n += 3

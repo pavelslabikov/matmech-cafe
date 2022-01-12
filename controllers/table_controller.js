@@ -35,7 +35,7 @@ exports.book_table_get = function (req, res, next) {
 
 exports.book_table_post = [
     body(['phone_number'], 'Некорректный формат номера').trim().isMobilePhone('ru-RU'),
-    body(['name'], 'Некорректный формат имени').trim().optional(),
+    body(['name'], 'Некорректный формат имени').trim(),
     (req, res) => {
         const errors = validationResult(req);
 
@@ -45,24 +45,32 @@ exports.book_table_post = [
                     res.render('book_table', {table: currTable, customer: req.body, errors: errors.array()});
                     return;
                 }
+                if (currTable.occupied) {
+                    res.render('book_table', {table: currTable, customer: req.body, errors: [{msg: 'Столик уже был забронирован!'}]});
+                    return;
+                }
                 customer.findOne()
                     .where('phone_number').equals(req.body.phone_number)
+                    .populate('occupied_table')
                     .exec(function (err, foundCustomer) {
                         console.log(foundCustomer)
                         if (err) {
                             return next(err);
                         }
                         if (foundCustomer == null) {
-                            var cust = new customer({phone_number: req.body.phone_number, name: req.body.name});
+                            var cust = new customer({phone_number: req.body.phone_number, name: req.body.name, occupied_table: currTable});
                             console.log('New customer: ' + cust);
-                            currTable.customer_id = cust
+                            cust.save()
                         } else {
-                            currTable.customer_id = foundCustomer
+                            if (foundCustomer.occupied_table != null) {
+                                res.render('book_table', {table: currTable, customer: req.body, errors: [{msg: 'Вами ранее уже был забронирован другой столик!'}]});
+                                return;
+                            }
                         }
                         currTable.occupied = true
                         currTable.save()
                         res.render('book_table', {table: currTable, customer: req.body});
-                    })
+                    });
             })
 
 

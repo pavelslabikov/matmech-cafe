@@ -27,8 +27,6 @@ var workers = []
 var tables = []
 
 
-customer.deleteMany()
-worker.deleteMany()
 
 function customerCreate(name, phone, cb) {
     detail = {
@@ -48,9 +46,12 @@ function customerCreate(name, phone, cb) {
     }  );
 }
 
-function workerCreate(name, cb) {
+function workerCreate(name, job, description, image, cb) {
     detail = {
-        name: name
+        name: name,
+        job: job,
+        description: description,
+        image: image
     }
 
     var newWorker = new worker(detail);
@@ -84,26 +85,20 @@ function tableCreate(num, cap, cb) {
     }  );
 }
 
-function createCustomers(cb) {
-    async.parallel([
-            function(callback) {
-                customerCreate('test', '123', callback);
-            },
-            function(callback) {
-                customerCreate('pashka', '819', callback);
-            }
-        ],
-        // optional callback
-        cb);
-}
 
 function createWorkers(cb) {
     async.parallel([
             function(callback) {
-                workerCreate('Yess Yee', callback);
+                workerCreate('Gordon Ramsay', 'Шеф-повар', '', 'ramsay.jpg', callback);
             },
             function(callback) {
-                workerCreate('Kanye West', callback);
+                workerCreate('Ye', 'Дизайнер интерьера', '', 'kanye.jpg', callback);
+            },
+            function(callback) {
+                workerCreate('Matthew Murdock', 'Официант', '', 'murdock.jpg', callback);
+            },
+            function(callback) {
+                workerCreate('Wilson Fisk', 'Менеджер', '', 'fisk.jpg', callback);
             }
         ],
         // optional callback
@@ -125,7 +120,6 @@ function createTables(cb) {
 
 
 async.series([
-        createCustomers,
         createWorkers,
         createTables
     ],
