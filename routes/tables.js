@@ -6,6 +6,8 @@ tables_controller = require('../controllers/table_controller')
 
 router.get('/', tables_controller.all_tables);
 
+router.post('/', tables_controller.create_table);
+
 router.get('/book/:number', tables_controller.book_table_get);
 
 router.post('/book/:number', tables_controller.book_table_post);
