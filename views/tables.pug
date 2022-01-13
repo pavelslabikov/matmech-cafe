@@ -2,11 +2,10 @@ extends layout
 
 block content
     h1 Столики для бронирования
-    table(border='1px solid gray', width='100%')
+    ul(class='table-list')
         each table in tables
-            tr
-                td
-                    a(href="/tables/book/" + table.number) #{table.number}
-                    |  <br>Количество мест: #{table.capacity}<br>Расположение стола: #{table.place}
+            li
+                a(href="/tables/book/" + table.number class='list-element') Номер: #{table.number}<br>Количество мест: #{table.capacity}<br>Расположение стола: #{table.place}
+
         else
-            p В данный момент свободных столиков нет.
+            li В данный момент свободных столиков нет.

@@ -10,13 +10,13 @@ block content
                     td
                         if workers[n]
                             img(src='/public/images/' + workers[n].image class='worker-photo')
-                            | <br>Имя: #{workers[n].name}<br>Должность: #{workers[n].job}<br>О сотруднике: #{workers[n].description}
+                            | <br>Имя: #{workers[n].name}<br>Должность: #{workers[n].job}<br>
                     td
                         if workers[n + 1]
                             img(src='/public/images/' + workers[n + 1].image class='worker-photo')
-                            | <br>Имя: #{workers[n + 1].name}<br>Должность: #{workers[n + 1].job}<br>О сотруднике: #{workers[n + 1].description}
+                            | <br>Имя: #{workers[n + 1].name}<br>Должность: #{workers[n + 1].job}<br>
                     td
                         if workers[n + 2]
                             img(srcset='/public/images/' + workers[n + 2].image class='worker-photo')
-                            | <br>Имя: #{workers[n + 2].name}<br>Должность: #{workers[n + 2].job}<br>О сотруднике: #{workers[n + 2].description}
+                            | <br>Имя: #{workers[n + 2].name}<br>Должность: #{workers[n + 2].job}<br>
                 - n += 3

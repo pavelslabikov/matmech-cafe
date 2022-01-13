@@ -90,12 +90,12 @@ function book_table(errors, res, req, next) {
                         });
                         return;
                     }
+                    foundCustomer.occupied_table = currentTable
+                    foundCustomer.name = req.body.name
+                    foundCustomer.save()
                 }
                 currentTable.occupied = true
                 currentTable.save()
-                foundCustomer.occupied_table = currentTable
-                foundCustomer.name = req.body.name
-                foundCustomer.save()
                 res.render('book_table', {table: currentTable, customer: req.body, message: {text: '✅ Успех'}});
             });
     };
